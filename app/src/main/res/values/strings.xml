@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Hotel Avaya</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="email_lbl">Email</string>
+    <string name="pass_lbl">Password</string>
+</resources>

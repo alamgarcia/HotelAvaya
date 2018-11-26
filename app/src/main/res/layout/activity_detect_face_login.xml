@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.garcia76.hotelavaya.DetectFaceLogin"
+    android:id="@+id/relativeLayout">
+
+    <io.fotoapparat.facedetector.view.CameraOverlayLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Adjust parameters as you like. But cameraView has to be inside CameraOverlayLayout -->
+        <io.fotoapparat.view.CameraView
+            android:id="@+id/cameraView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- This view will display detected faces -->
+        <io.fotoapparat.facedetector.view.RectanglesView
+            android:id="@+id/rectanglesView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:rectanglesColor="@color/colorAccent"
+            app:rectanglesStrokeWidth="2dp"/>
+
+    </io.fotoapparat.facedetector.view.CameraOverlayLayout>
+
+</android.support.constraint.ConstraintLayout>

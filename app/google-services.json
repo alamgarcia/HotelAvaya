@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "739958984850",
+    "firebase_url": "https://deploycala.firebaseio.com",
+    "project_id": "deploycala",
+    "storage_bucket": "deploycala.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739958984850:android:a044275e0defb8a8",
+        "android_client_info": {
+          "package_name": "com.example.garcia76.hotelavaya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739958984850-2jo67668i5t9l7vddu5jq4ct5m1a0540.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9nHXaYtDXTuzRDb-K9-Y2tYEi85uahxo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
