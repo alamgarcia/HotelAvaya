@@ -8,24 +8,29 @@
     tools:context="com.example.garcia76.hotelavaya.DetectFaceLogin"
     android:id="@+id/relativeLayout">
 
-    <io.fotoapparat.facedetector.view.CameraOverlayLayout
+    <io.fotoapparat.view.CameraView
+        android:id="@+id/cameraView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scaleType="fitStart"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
 
-        <!-- Adjust parameters as you like. But cameraView has to be inside CameraOverlayLayout -->
-        <io.fotoapparat.view.CameraView
-            android:id="@+id/cameraView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        />
 
-        <!-- This view will display detected faces -->
-        <io.fotoapparat.facedetector.view.RectanglesView
-            android:id="@+id/rectanglesView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:rectanglesColor="@color/colorAccent"
-            app:rectanglesStrokeWidth="2dp"/>
 
-    </io.fotoapparat.facedetector.view.CameraOverlayLayout>
+    <com.example.garcia76.hotelavaya.GraphicOverlay
+        android:id="@+id/graphic_overlay"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_constraintTop_toTopOf="@id/cameraView"
+        app:layout_constraintBottom_toBottomOf="@id/cameraView"
+        app:layout_constraintLeft_toLeftOf="@id/cameraView"
+        app:layout_constraintRight_toRightOf="@id/cameraView"
+        android:layout_alignParentStart="true" />
+
+
 
 </android.support.constraint.ConstraintLayout>

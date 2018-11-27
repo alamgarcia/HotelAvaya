@@ -69,7 +69,7 @@
                 app:layout_constraintGuide_percent="0.3" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/email_txt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -87,7 +87,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/pass_txt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

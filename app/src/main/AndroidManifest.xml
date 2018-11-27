@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.garcia76.hotelavaya">
+
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true"/>
+        android:required="true" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -32,7 +32,11 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="face" />
 
-        <activity android:name=".DetectFaceLogin"></activity>
+        <activity android:name=".DetectFaceLogin" />
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home" />
+        <activity android:name=".NuevoRegistro"></activity>
     </application>
 
 </manifest>
