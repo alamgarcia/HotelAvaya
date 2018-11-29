@@ -1,24 +1,33 @@
 package com.example.garcia76.hotelavaya
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
+import com.example.garcia76.hotelavaya.Fragments.Dashboard
+import com.example.garcia76.hotelavaya.Fragments.Home
+import com.github.nkzawa.socketio.client.IO
 import kotlinx.android.synthetic.main.activity_home.*
+import java.net.URISyntaxException
 
 class HomeActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                message.setText(R.string.title_home)
+
+                val homeamv_fg = Home.newInstance()
+                openFragment(homeamv_fg)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                message.setText(R.string.title_dashboard)
+                val dashboard_fg = Dashboard.newInstance()
+                openFragment(dashboard_fg)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                message.setText(R.string.title_notifications)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -28,7 +37,22 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        var myPreferences = "myPrefs"
+        var sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE)
+        var nombre = sharedPreferences.getString("nombre", "0")
+        Toast.makeText(this@HomeActivity, "Bienvenido Sr. $nombre", Toast.LENGTH_SHORT).show()
+        val homeamv_fg = Home.newInstance()
+        openFragment(homeamv_fg)
     }
+
+
+    private fun openFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+
 }

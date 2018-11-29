@@ -1,6 +1,7 @@
 package com.example.garcia76.hotelavaya
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -9,9 +10,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
+import com.example.garcia76.hotelavaya.DataClass.LoginData
+import com.example.garcia76.hotelavaya.FaceRecognition.DetectFaceLogin
+import com.example.garcia76.hotelavaya.Utils.HashUtils
+import com.example.garcia76.hotelavaya.Utils.useInsecureSSL
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.Method
-import com.github.kittinunf.fuel.httpGet
 import com.google.gson.Gson
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -20,8 +24,6 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import java.security.cert.X509Certificate
-import javax.net.ssl.*
 
 
 class MainActivity : AppCompatActivity(){
@@ -32,7 +34,6 @@ class MainActivity : AppCompatActivity(){
                 .withPermissions(
                         Manifest.permission.CAMERA,
                         Manifest.permission.RECORD_AUDIO
-
                 ).withListener(object : MultiplePermissionsListener {
                     override fun onPermissionsChecked(report: MultiplePermissionsReport) {/* ... */
                     }
@@ -43,7 +44,16 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-
+        var myPreferences = "myPrefs"
+        var sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE)
+        var firstrun = sharedPreferences.getBoolean("firstlogin", true)
+        if (firstrun) {
+           Log.d("Mensajes", "No s eha configurado")
+        } else {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         //LIsteners Botones
 
         // Obtenemos referencias
@@ -65,16 +75,8 @@ class MainActivity : AppCompatActivity(){
             startActivity(intent)
         }
         recoverpwd_btn.setOnClickListener {
-
         }
-
-
     }
-
-
-
-
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -96,28 +98,6 @@ class MainActivity : AppCompatActivity(){
 
 
     //Bypass Certificados SSL
-    fun useInsecureSSL() {
-        val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-            override fun getAcceptedIssuers(): Array<X509Certificate>? = null
-            override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) = Unit
-            override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) = Unit
-        })
-        val sc = SSLContext.getInstance("SSL")
-        sc.init(null, trustAllCerts, java.security.SecureRandom())
-        HttpsURLConnection.setDefaultSSLSocketFactory(sc.socketFactory)
-        val allHostsValid = HostnameVerifier { _, _ -> true }
-        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid)
-    }
-
-
-    //Check Array está vacío o no
-
-
-    fun isNullOrEmpty(str: String?): Boolean {
-        if (str != null && !str.isEmpty())
-            return false
-        return true
-    }
 
 
     //Funcion Login
@@ -144,20 +124,30 @@ class MainActivity : AppCompatActivity(){
                     // creamos una variable llamada gson para la Funcion GSON() para que sea mas accesible
                     var gson = Gson()
                     //Asignamos a la variable Login el metodo gson?.fromJson(data, Login.Response::class.java) y le pasamos el response JSON para su conversion a un objeto que Android puede manejar
-                    var Login = gson?.fromJson(data, Record::class.java)
-                    if (isNullOrEmpty(Login.toString()))
-                        runOnUiThread {
-                            Toast.makeText(this@MainActivity, "Contraseña o correo incorrecto", Toast.LENGTH_SHORT).show()
-                            email_txt.text.clear()
-                            pass_txt.text.clear()
-                        }
-                    else
-                        println("Se encontró usuario")
-                    val intent = Intent(this, HomeActivity::class.java)
-                    // Pasar Datos a la siguiente actividad
-                    // intent.putExtra("keyIdentifier", value)
-                    // Iniciar la Actividad
-                    startActivity(intent)
+                    var Login = gson?.fromJson(data, LoginData::class.java)
+                    if (Login.records.isEmpty()) {
+                        Toast.makeText(this@MainActivity, "Datos Incorrecta. Revisa tu correo y/o contraseña ", Toast.LENGTH_LONG).show()
+                    } else {
+
+                        val myPreferences = "myPrefs"
+                        val sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putString("id", Login.records[0].id.toString())
+                        editor.putString("nombre", Login.records[0].nombre)
+                        editor.putString("apellidos", Login.records[0].apellidos)
+                        editor.putString("hotel", Login.records[0].hotel.toString())
+                        editor.putString("usuario", Login.records[0].usuario)
+                        editor.putString("wifi", Login.records[0].wifi)
+                        editor.putString("correo", Login.records[0].correo)
+                        editor.putString("password", Login.records[0].password)
+                        editor.putString("mac", Login.records[0].mac)
+                        editor.putBoolean("firstlogin", false)
+                        editor.apply()
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+                    }
 
                 }
             }
