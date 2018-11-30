@@ -8,9 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.example.garcia76.hotelavaya.Fragments.Dashboard
 import com.example.garcia76.hotelavaya.Fragments.Home
-import com.github.nkzawa.socketio.client.IO
 import kotlinx.android.synthetic.main.activity_home.*
-import java.net.URISyntaxException
 
 class HomeActivity : AppCompatActivity() {
 
