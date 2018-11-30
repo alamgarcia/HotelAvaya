@@ -62,9 +62,9 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
 
                 <Spinner
-                    android:id="@+id/spinner2"
+                    android:id="@+id/user_spinner"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="24dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
@@ -97,7 +97,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:text="Idioma Origen:"
+                    android:text="Idioma Reconocimiento"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline14"
                     app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +110,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:text="Idioma Destino:"
+                    android:text="Idioma TTS:"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -121,12 +121,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.3" />
+                    app:layout_constraintGuide_percent="0.4" />
 
                 <Spinner
-                    android:id="@+id/spinner3"
+                    android:id="@+id/speech_spinner"
                     android:layout_width="0dp"
-                    android:layout_height="75dp"
+                    android:layout_height="26dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
@@ -137,9 +137,9 @@
                     app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
                 <Spinner
-                    android:id="@+id/spinner5"
+                    android:id="@+id/tts_spinner"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="24dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
@@ -183,7 +183,7 @@
                     android:id="@+id/rec_btn"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
@@ -205,6 +205,7 @@
                     android:ems="10"
                     android:inputType="textMultiLine"
                     android:singleLine="false"
+                    android:textAlignment="viewStart"
                     app:layout_constraintBottom_toTopOf="@+id/guideline19"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -227,22 +228,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.6" />
+                    app:layout_constraintGuide_percent="0.77" />
 
                 <Button
                     android:id="@+id/btn1"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="24dp"
+                    android:layout_height="49dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="8dp"
                     android:text="Enviar"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline20"
                     app:layout_constraintTop_toTopOf="@+id/guideline19"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintVertical_bias="0.51" />
 
                 <android.support.constraint.Guideline
                     android:id="@+id/guideline20"
