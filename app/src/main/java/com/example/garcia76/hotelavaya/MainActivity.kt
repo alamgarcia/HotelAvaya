@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import com.example.garcia76.hotelavaya.DataClass.LoginData
-import com.example.garcia76.hotelavaya.FaceRecognition.DetectFaceLogin
 import com.example.garcia76.hotelavaya.Utils.HashUtils
 import com.example.garcia76.hotelavaya.Utils.useInsecureSSL
 import com.github.kittinunf.fuel.core.FuelManager
@@ -76,6 +75,13 @@ class MainActivity : AppCompatActivity(){
         }
         recoverpwd_btn.setOnClickListener {
         }
+
+        newuser_btn.setOnClickListener {
+            val intent = Intent(this, NuevoRegistro::class.java)
+            startActivity(intent)
+        }
+
+
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

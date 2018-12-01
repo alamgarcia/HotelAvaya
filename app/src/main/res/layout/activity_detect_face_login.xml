@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.garcia76.hotelavaya.FaceRecognition.DetectFaceLogin"
+    tools:context="com.example.garcia76.hotelavaya.DetectFaceLogin"
     android:id="@+id/relativeLayout">
 
     <io.fotoapparat.view.CameraView
@@ -21,7 +21,7 @@
         />
 
 
-    <com.example.garcia76.hotelavaya.GraphicOverlay
+    <com.example.garcia76.hotelavaya.FaceRecognition.GraphicOverlay
         android:id="@+id/graphic_overlay"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
