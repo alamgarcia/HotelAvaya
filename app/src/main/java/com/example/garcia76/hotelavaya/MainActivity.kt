@@ -10,7 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
-import com.example.garcia76.hotelavaya.DataClass.LoginData
+import com.example.garcia76.hotelavaya.DataClass.LoginDataClass
 import com.example.garcia76.hotelavaya.Utils.HashUtils
 import com.example.garcia76.hotelavaya.Utils.useInsecureSSL
 import com.github.kittinunf.fuel.core.FuelManager
@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         Dexter.withActivity(this)
                 .withPermissions(
@@ -41,13 +42,14 @@ class MainActivity : AppCompatActivity(){
                     }
                 }).check()
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+
+        useInsecureSSL().useInsecureSSL()
 
         var myPreferences = "myPrefs"
         var sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE)
         var firstrun = sharedPreferences.getBoolean("firstlogin", true)
         if (firstrun) {
-           Log.d("Mensajes", "No s eha configurado")
+           Log.d("Mensajes", "No se ha configurado")
         } else {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
@@ -111,7 +113,6 @@ class MainActivity : AppCompatActivity(){
 
 
     fun login(user: String, password:String){
-        useInsecureSSL()
         //Convertir a SHA1 el campo de ocntraseña
         var passsha1 = HashUtils.sha1(password)
         //Imprimimos Debug
@@ -120,8 +121,9 @@ class MainActivity : AppCompatActivity(){
         Log.d("Login", passsha1)
         val manager: FuelManager by lazy { FuelManager() }
         //Usamos el metodo request de FUUEL Manager, junto a la lusta de parametros
-        manager.request(Method.GET, "https://devavaya.ddns.net/hotel/api.php/records/usuarios_tb?filter=correo,eq,$user&filter=password,eq,$passsha1").responseString { req, res, result ->
+        manager.request(Method.GET, "https://devavaya.ddns.net/hotel/api.php/records/usuarios_tb?filter=usuario,eq,$user&filter=password,eq,$passsha1").responseString { req, res, result ->
             val (data, error) = result
+            Log.d("Request", error.toString())
             //Si no tenemos ningun error, procedemos a hacer la llamada, ya que el servidor respondio con un 200 y tendremos el Token de LLamada
             when (error) {
                 null -> {
@@ -130,7 +132,7 @@ class MainActivity : AppCompatActivity(){
                     // creamos una variable llamada gson para la Funcion GSON() para que sea mas accesible
                     var gson = Gson()
                     //Asignamos a la variable Login el metodo gson?.fromJson(data, Login.Response::class.java) y le pasamos el response JSON para su conversion a un objeto que Android puede manejar
-                    var Login = gson?.fromJson(data, LoginData::class.java)
+                    var Login = gson?.fromJson(data, LoginDataClass::class.java)
                     if (Login.records.isEmpty()) {
                         Toast.makeText(this@MainActivity, "Datos Incorrecta. Revisa tu correo y/o contraseña ", Toast.LENGTH_LONG).show()
                     } else {
@@ -147,6 +149,8 @@ class MainActivity : AppCompatActivity(){
                         editor.putString("correo", Login.records[0].correo)
                         editor.putString("password", Login.records[0].password)
                         editor.putString("mac", Login.records[0].mac)
+                        editor.putString("idiomatts", Login.records[0].idiomatts)
+
                         editor.putBoolean("firstlogin", false)
                         editor.apply()
                         val intent = Intent(this, HomeActivity::class.java)
@@ -159,4 +163,6 @@ class MainActivity : AppCompatActivity(){
             }
         }
     }
+
+
 }

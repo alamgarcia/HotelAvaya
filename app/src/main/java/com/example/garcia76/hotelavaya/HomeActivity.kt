@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.example.garcia76.hotelavaya.Fragments.Dashboard
 import com.example.garcia76.hotelavaya.Fragments.Home
+import com.example.garcia76.hotelavaya.Fragments.SettingsFragment
+import com.example.garcia76.hotelavaya.Utils.useInsecureSSL
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -25,7 +27,11 @@ class HomeActivity : AppCompatActivity() {
                 openFragment(dashboard_fg)
                 return@OnNavigationItemSelectedListener true
             }
+
             R.id.navigation_notifications -> {
+                val settings_fg = SettingsFragment.newInstance()
+
+                openFragment(settings_fg)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -36,6 +42,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
         var myPreferences = "myPrefs"
         var sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE)
         var nombre = sharedPreferences.getString("nombre", "0")
